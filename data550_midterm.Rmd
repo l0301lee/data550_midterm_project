@@ -1,0 +1,119 @@
+---
+title: "data550_midterm"
+author: "Drashti Maisuria"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+install.packages("tidyverse")  
+install.packages("ggplot2")    
+install.packages("dplyr")     
+```
+
+```{r}
+library(tidyverse)
+df <- read.csv("/Users/drashti/downloads/f75_interim.csv")
+head(df)
+summary(df)
+str(df)
+```
+
+```{r}
+numerical_stats <- df %>%
+  select(agemons, weight, height) %>%
+  summary()
+numerical_detailed <- df %>%
+  summarise(
+    age_mean = mean(agemons, na.rm = TRUE),
+    age_sd = sd(agemons, na.rm = TRUE),
+    weight_mean = mean(weight, na.rm = TRUE),
+    weight_sd = sd(weight, na.rm = TRUE),
+    height_mean = mean(height, na.rm = TRUE),
+    height_sd = sd(height, na.rm = TRUE)
+  )
+print(numerical_detailed)
+```
+
+```{r}
+library(tidyverse) 
+df <- read.csv("/Users/drashti/downloads/f75_interim.csv")
+
+diarrhea_summary <- df %>%
+  summarise(
+    diarrhea_count = table(diarrhoea),
+    diarrhea_percentage = prop.table(table(diarrhoea)) * 100
+  )
+
+kwashiorkor_summary <- df %>%
+  summarise(
+    kwashiorkor_count = table(kwash),
+    kwashiorkor_percentage = prop.table(table(kwash)) * 100
+  )
+
+TB_summary <- df %>%
+  summarise(
+    TB_count = table(tb),
+    TB_percentage = prop.table(table(tb)) * 100
+  )
+
+HIV_status_summary <- df %>%
+  summarise(
+    HIV_status_count = table(hiv_results),
+    HIV_status_percentage = prop.table(table(hiv_results)) * 100
+  )
+
+# Print summaries for each clinical condition
+print(diarrhea_summary)
+print(kwashiorkor_summary)
+print(TB_summary)
+print(HIV_status_summary)
+
+```
+
+```{r}
+ggplot(df, aes(x = diarrhoea)) +
+  geom_bar(fill = "blue", color = "black") +
+  labs(title = "Diarrhea Status", x = "Diarrhea", y = "Count") +
+  theme_minimal()
+
+ggplot(df, aes(x = kwash)) +
+  geom_bar(fill = "green", color = "black") +
+  labs(title = "Kwashiorkor Status", x = "Kwashiorkor", y = "Count") +
+  theme_minimal()
+
+ggplot(df, aes(x = tb)) +
+  geom_bar(fill = "pink", color = "black") +
+  labs(title = "Tuberculosis Status", x = "TB", y = "Count") +
+  theme_minimal()
+
+ggplot(df, aes(x = hiv_results)) +
+  geom_bar(fill = "orange", color = "black") +
+  labs(title = "HIV Status", x = "HIV Status", y = "Count") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(df, aes(x = agemons)) +
+  geom_histogram(bins = 15, fill = "blue", color = "black") +
+  labs(title = "Age Distribution", x = "Age", y = "Frequency") +
+  theme_minimal()
+
+ggplot(df, aes(x = weight)) +
+  geom_histogram(bins = 15, fill = "pink", color = "black") +
+  labs(title = "Weight Distribution", x = "Weight", y = "Frequency") +
+  theme_minimal()
+
+ggplot(df, aes(x = height)) +
+  geom_histogram(bins = 15, fill = "orange", color = "black") +
+  labs(title = "Height Distribution", x = "Height", y = "Frequency") +
+  theme_minimal()
+```
+
+
+
+
+
+
+
