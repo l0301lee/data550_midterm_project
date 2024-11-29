@@ -9,11 +9,14 @@ output: html_document
 install.packages("tidyverse")  
 install.packages("ggplot2")    
 install.packages("dplyr")     
+install.packages("here")  
 ```
 
 ```{r}
 library(tidyverse)
-df <- read.csv("/Users/drashti/downloads/f75_interim.csv")
+library(here)
+filepath = here("data", "f75_interim.csv")
+df <- read.csv(filepath)
 head(df)
 summary(df)
 str(df)
@@ -37,7 +40,7 @@ print(numerical_detailed)
 
 ```{r}
 library(tidyverse) 
-df <- read.csv("/Users/drashti/downloads/f75_interim.csv")
+df <- read.csv(filepath)
 
 diarrhea_summary <- df %>%
   summarise(
