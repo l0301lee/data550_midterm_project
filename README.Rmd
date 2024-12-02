@@ -63,15 +63,15 @@ Changes made to the `config.yaml` file automatically update the report without f
 1. Clone the repository.
 2. Place the `f75_interim.csv` and `f75_codebook.xlsx` files in the `data/` folder.
 3. Modify `config/config.yaml` as needed for customization.
-4. Run `make` in the project root directory to generate the report.
+4. Run `make install` too set up the project environment and install all necessary dependencies.
+5. Run `make` in the project root directory to generate the report.
+6. Run `make clean` to remove generated files and clean the project directory (optional)
 
 ## Requirements
 - **R**: Required for running the analysis scripts.
 - **Make**: For automating the report generation.
 - **R Packages**: Ensure the required R packages are installed (e.g., `tidyverse`, `ggplot2`, `knitr`, etc.).
 
-## License
-This project is licensed under the MIT License.
 
 ---
 

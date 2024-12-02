@@ -15,6 +15,10 @@ REPORT_HTML := $(OUTPUT_DIR)/report.html
 # Default target
 all: $(REPORT_HTML)
 
+# Install project dependencies using renv
+install:
+	Rscript -e "renv::restore()"
+
 # Create output directory if it doesn't exist
 $(OUTPUT_DIR):
 	mkdir -p $(OUTPUT_DIR)
