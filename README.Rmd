@@ -38,8 +38,7 @@ project/
 │   ├── main_report.Rmd         # Main R Markdown report
 │   ├── analysis_baseline.R     # Coder 1's baseline analysis
 │   ├── analysis_outcome1.R     # Coder 2's outcome analysis
-│   ├── analysis_outcome2.R     # Coder 3's outcome analysis
-│   └── helpers.R               # Helper functions for analyses
+│   └──  analysis_outcome2.R    # Coder 3's outcome analysis
 ├── config/                     # Configuration settings
 │   └── config.yaml             # Config file to control report parameters
 ├── output/                     # Directory for the generated report

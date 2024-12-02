@@ -1,0 +1,135 @@
+---
+title: "F75 Clinical Trial Analysis"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+params:
+  config_file: "config/config.yaml"
+---
+
+```{r setup, include=FALSE}
+library(here)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+library(dplyr)
+
+# Ensure the working directory is set correctly
+here::i_am("src/main_report.Rmd")
+```
+
+# Overview
+
+This report summarizes the analyses performed on the **F75 Clinical Trial dataset**. The analyses focus on:
+- Baseline characteristics of participants.
+- Outcomes such as days to stabilization and discharge status.
+- Secondary outcomes, including mortality, adverse events, and changes in MUAC and weight.
+
+# Data and Methods
+
+The data were analyzed using the following scripts:
+- `analysis_baseline.R` for baseline characteristics.
+- `analysis_outcome1.R` for primary outcomes.
+- `analysis_outcome2.R` for secondary outcomes.
+
+---
+
+## Baseline Characteristics
+
+The baseline analysis examines participants' demographics and clinical status.
+
+```{r baseline-analysis, echo=FALSE, results='asis'}
+source(here("src/analysis_baseline.R"))
+
+# Load numerical summary
+numerical_summary <- read.csv(here("output", "numerical_summary.csv"))
+cat("### Numerical Summary\n")
+kable(numerical_summary) %>%
+  kable_styling(full_width = FALSE)
+
+# Load and display categorical summaries
+cat("\n### Diarrhea Summary\n")
+diarrhea_summary <- read.csv(here("output", "diarrhea_summary.csv"))
+kable(diarrhea_summary) %>%
+  kable_styling(full_width = FALSE)
+
+cat("\n### Kwashiorkor Summary\n")
+kwashiorkor_summary <- read.csv(here("output", "kwashiorkor_summary.csv"))
+kable(kwashiorkor_summary) %>%
+  kable_styling(full_width = FALSE)
+```
+
+---
+
+## Primary Outcomes
+
+The primary outcome analysis evaluates **days to stabilization** and **discharge status**.
+
+```{r outcome1-analysis, echo=FALSE, results='asis'}
+source(here("src/analysis_outcome1.R"))
+
+# Display Days to Stabilization Summary
+cat("### Days to Stabilization Summary\n")
+days_stable_summary <- read.csv(here("output", "days_stable_summary.csv"))
+kable(days_stable_summary) %>%
+  kable_styling(full_width = FALSE)
+
+# Display and embed plots
+cat("\n### Days to Stabilization Boxplot\n")
+knitr::include_graphics(here("output", "days_stable_boxplot.png"))
+
+cat("\n### Discharge Status\n")
+discharge_status_counts <- read.csv(here("output", "discharge_status_counts.csv"))
+kable(discharge_status_counts) %>%
+  kable_styling(full_width = FALSE)
+
+cat("\n### Discharge Status Bar Chart\n")
+knitr::include_graphics(here("output", "discharge_status_barchart.png"))
+```
+
+---
+
+## Secondary Outcomes
+
+The secondary outcomes include **mortality analysis**, **adverse events**, and **MUAC/weight changes**.
+
+```{r outcome2-analysis, echo=FALSE, results='asis'}
+source(here("src/analysis_outcome2.R"))
+
+# Mortality Analysis
+cat("### Mortality Analysis\n")
+mortality_table <- read.csv(here("output", "mortality_table.csv"))
+kable(mortality_table) %>%
+  kable_styling(full_width = FALSE)
+
+cat("\n### Mortality Bar Chart\n")
+knitr::include_graphics(here("output", "mortality_bar_chart.png"))
+
+# Adverse Events Analysis
+cat("\n### Adverse Events Analysis\n")
+adverse_events_table <- read.csv(here("output", "adverse_events_table.csv"))
+kable(adverse_events_table) %>%
+  kable_styling(full_width = FALSE)
+
+cat("\n### Adverse Events Bar Chart\n")
+knitr::include_graphics(here("output", "adverse_events_bar_chart.png"))
+
+# MUAC and Weight Change
+cat("\n### MUAC Change Boxplot\n")
+knitr::include_graphics(here("output", "muac_box_plot.png"))
+
+cat("\n### Weight Change Boxplot\n")
+knitr::include_graphics(here("output", "weight_box_plot.png"))
+```
+
+---
+
+# Conclusion
+
+The analyses reveal key insights about participants' baseline characteristics, primary outcomes related to stabilization and discharge, and secondary outcomes, including mortality and clinical changes during the trial.
+
+---
+
+# Appendix
+
+The full scripts used for the analyses are available in the `src/` directory for reproducibility.
